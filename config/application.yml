@@ -1,0 +1,13 @@
+default: &default
+  api:
+    url: "https://www.chiikinogennki.soumu.go.jp/k-cloud-api/v001/"
+    format: "json"
+
+development:
+  <<: *default
+
+production:
+  <<: *default
+
+test:
+  <<: *default

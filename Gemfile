@@ -33,6 +33,11 @@ gem 'jbuilder', '~> 2.5'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'rspec-rails', '~> 3.5.0'
+  gem "factory_girl_rails", '~> 4.8.0'
+  gem "rails-controller-testing"
+  gem 'capybara'
+  gem 'pry-rails'
 end
 
 group :development do
@@ -46,3 +51,8 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'settingslogic'
+
+# api
+gem 'faraday','~> 0.10.1'
+gem 'faraday_middleware','~> 0.11.0.1'
