@@ -4,7 +4,7 @@ class ApiEvent
   include ActiveModel::Model
 
   attr_accessor :genre, :code, :coordinates, :facility, :name, :place, :desc, :limit, :skip,
-                :latitude, :longitude, :distance, :genres
+                :latitude, :longitude, :distance
 
   @@limit = 50
 
