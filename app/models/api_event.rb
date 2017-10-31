@@ -90,7 +90,7 @@ class ApiEvent
       events = ApiEvent.new
       # 城郭;旧街道;史跡;歴史的建造物;近代的建造物;博物館;美術館;動・植物園;水族館;神社・仏閣等;道の駅（見る）;その他（特殊地形）
       events.genre = ['城郭', '旧街道', '史跡', '歴史的建造物', '近代的建造物', '博物館', '美術館', '動・植物園', '水族館', '神社・仏閣等', '道の駅（見る）', 'その他（特殊地形）']
-      events.limit = 6
+      events.limit = 3
       ApiEvent.find_from_api(events)
     end
 
