@@ -46,7 +46,6 @@ class ApiEvent
     return URI.escape(param)
   end
 
-  # クラスメソッドここから
   class << self
     # イベント情報をAPIから取得する
     def find_from_api(api_event_model)
