@@ -65,7 +65,6 @@ Genre.create([
   {id: 6, name: "乗り物", parent_id: nil},
   {id: 7, name: "泊まる", parent_id: nil},
   {id: 8, name: "その他", parent_id: nil},
-
   # ジャンルM
   {id: 9, name: "自然景観", parent_id: 1},
   {id: 10, name: "施設景観", parent_id: 1},
@@ -175,5 +174,5 @@ Genre.create([
   {id: 113, name: "民宿", parent_id: 34},
   {id: 114, name: "ペンション", parent_id: 34},
   {id: 115, name: "その他(泊まる),", parent_id: 35},
-  {id: 116, name: "その他(その他),", parent_id: 36}
+  {id: 116, name: "その他(その他),", parent_id: 36},
   ])

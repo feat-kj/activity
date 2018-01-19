@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180115074450) do
+ActiveRecord::Schema.define(version: 20180119084949) do
 
   create_table "accesses", force: :cascade do |t|
     t.integer  "spot_id"
@@ -26,13 +26,13 @@ ActiveRecord::Schema.define(version: 20180115074450) do
   end
 
   create_table "facilities", force: :cascade do |t|
-    t.integer  "spot_id_id"
+    t.integer  "spot_id"
     t.text     "name"
-    t.integer  "quantity"
-    t.integer  "quantity_handicapped"
+    t.text     "quantity"
+    t.text     "note"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.index ["spot_id_id"], name: "index_facilities_on_spot_id_id"
+    t.index ["spot_id"], name: "index_facilities_on_spot_id"
   end
 
   create_table "genres", force: :cascade do |t|
@@ -70,6 +70,15 @@ ActiveRecord::Schema.define(version: 20180115074450) do
   create_table "prefectures", force: :cascade do |t|
     t.text "name"
     t.text "name_spoken"
+  end
+
+  create_table "spot_descriptions", force: :cascade do |t|
+    t.integer  "spot_id"
+    t.text     "body"
+    t.integer  "main",       default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["spot_id"], name: "index_spot_descriptions_on_spot_id"
   end
 
   create_table "spot_details", force: :cascade do |t|
@@ -110,6 +119,19 @@ ActiveRecord::Schema.define(version: 20180115074450) do
     t.index ["genre_id"], name: "index_spot_genres_on_genre_id"
     t.index ["spot_id", "genre_id"], name: "index_spot_genres_on_spot_id_and_genre_id", unique: true
     t.index ["spot_id"], name: "index_spot_genres_on_spot_id"
+  end
+
+  create_table "spot_images", force: :cascade do |t|
+    t.integer  "spot_id"
+    t.text     "file_name"
+    t.text     "url"
+    t.text     "copyright"
+    t.text     "name"
+    t.text     "spoken"
+    t.date     "shooting_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["spot_id"], name: "index_spot_images_on_spot_id"
   end
 
   create_table "spot_terms", force: :cascade do |t|
