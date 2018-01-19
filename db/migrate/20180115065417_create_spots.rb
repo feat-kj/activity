@@ -1,13 +1,14 @@
 class CreateSpots < ActiveRecord::Migration[5.0]
   def change
     create_table :spots do |t|
+      t.belongs_to :genre, nil:false, foreign_key: true
       t.text :name, nil: false
       t.text :name_spoken, nil:false
       t.text :body
       t.decimal :longitude, precision: 10, scale: 7
       t.decimal :latitude, precision: 10, scale: 7
       t.text :zip
-      t.belongs_to :prefecture, nil:false
+      t.belongs_to :prefecture, nil:false, foreign_key: true
       t.text :city, nil:false
       t.text :address1
       t.text :address2

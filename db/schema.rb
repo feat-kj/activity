@@ -36,9 +36,9 @@ ActiveRecord::Schema.define(version: 20180115074450) do
   end
 
   create_table "genres", force: :cascade do |t|
-    t.text     "genre_l"
-    t.text     "genre_m"
-    t.text     "genre_s"
+    t.text     "name"
+    t.integer  "parent_id"
+    t.integer  "enable",     default: 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -127,6 +127,7 @@ ActiveRecord::Schema.define(version: 20180115074450) do
   end
 
   create_table "spots", force: :cascade do |t|
+    t.integer  "genre_id"
     t.text     "name"
     t.text     "name_spoken"
     t.text     "body"
@@ -154,6 +155,7 @@ ActiveRecord::Schema.define(version: 20180115074450) do
     t.date     "ref_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["genre_id"], name: "index_spots_on_genre_id"
     t.index ["prefecture_id"], name: "index_spots_on_prefecture_id"
   end
 

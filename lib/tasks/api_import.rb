@@ -28,6 +28,30 @@ class Tasks::ApiImport
         spot.zip         = event.dig("place", "postal_code")
         spot.active_term = event.dig("visit", "service", "open")
 
+        # ジャンル
+        api_genres = event.dig("genres")
+        spot_genres = []
+        Array(api_genres).each_with_index{|item, index|
+          genre_l = Genre.where("name = ? and parent_id is null", item["L"]).first
+
+          
+
+
+          genre_l.genres.each{|genre_m|
+
+            if genre_m.name == item["M"]
+                genre_m.genres.map{|genre_s|
+                if genre_s.name == item["S"]
+                  main_flg = index ==0 ? 1 : 0
+                  spot_genre = SpotGenre.new({genre_id: genre_m.id, level: index, main: main_flg})
+                  spot_genres << spot_genre
+                end
+              }
+            end
+          }
+        }
+        spot.spot_genres = spot_genres
+
         # 連絡先
         spot.prefecture = prefectures[event.dig("place", "pref", "written")]
         spot.city     = event["place"]["city"]["written"]
@@ -76,19 +100,17 @@ class Tasks::ApiImport
         # 開催期間
         periods = event.dig("visit", "service", "periods")
         spot_terms = []
-        unless periods.nil?
-          spot_terms = periods.map{|item|
-            spot_term = SpotTerm.new
-            # spot_term.type = item.dig("type")
-            spot_term.season = item.dig("season")
-            spot_term.open_date = item.dig("st_date")
-            spot_term.close_date = item.dig("en_date")
-            spot_term.day_of_week = item.dig("day_of_week")
-            spot_term.hour = item.dig("hours")
-            spot_term.info = item.dig("note")
-          }
-        end
-        spot.spot_terms ||= spot_terms
+        spot_terms = Array(periods).map{|item|
+          spot_term = SpotTerm.new
+          spot_term.season = item.dig("season")
+          spot_term.open_date = item.dig("st_date")
+          spot_term.close_date = item.dig("en_date")
+          spot_term.day_of_week = item.dig("day_of_week")
+          spot_term.hour = item.dig("hours")
+          spot_term.info = item.dig("note")
+        }
+        spot.spot_terms = spot_terms
+
         # 登録処理
         begin
           Spot.transaction do
