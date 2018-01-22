@@ -3,11 +3,32 @@ class Tasks::ApiImport
   @prefecture
 
   def self.execute
-      Rails.logger.debug("api import")
-      responses = ApiEvent.find_recently
-      @prefectures = {}
-      Prefecture.all.each{|item| @prefectures[item.name] = item }
+    Rails.logger.debug("api import")
+    # responses = ApiEvent.find_recently
+    @prefectures = {}
+    Prefecture.all.each{|item| @prefectures[item.name] = item }
 
+    page_step = 50
+    genres = Genre.where(level: 3)
+
+    genres.each {|item|
+      events = ApiEvent.new(genre:[item.name], count:true)
+      count_result = ApiEvent.find_from_api(events)
+      count = count_result.dig("count").to_i
+      p "count:#{count.to_s}"
+      next if count == 0
+
+      limit_count = count + page_step
+      0.step(limit_count, page_step) {|index|
+        p "index:#{index.to_s}"
+        event_conditions = ApiEvent.new(genre: [item.name], skip: index, limit: page_step)
+        responses = ApiEvent.find_from_api(event_conditions)
+          self.spot_convert(responses["tourspots"])
+        }
+      }
+    end
+
+    def self.spot_convert(responses)
       responses.each {|event|
 
         begin

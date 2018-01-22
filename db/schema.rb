@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180119084949) do
+ActiveRecord::Schema.define(version: 20180122021733) do
 
   create_table "accesses", force: :cascade do |t|
     t.integer  "spot_id"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20180119084949) do
     t.integer  "enable",     default: 1
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "level"
   end
 
   create_table "parkings", force: :cascade do |t|
