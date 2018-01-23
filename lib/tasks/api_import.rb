@@ -78,6 +78,7 @@ class Tasks::ApiImport
         rescue => e
           p e
           Rails.logger.fatal(e)
+          p spot.name
           next
         end
       }
@@ -164,8 +165,9 @@ class Tasks::ApiImport
               genre_m.genres.map{|genre_s|
               if genre_s.name == item["S"]
                 main_flg = index == 0 ? 1 : 0
-                spot_genre = SpotGenre.new({genre_id: genre_m.id, level: index, main: main_flg})
+                spot_genre = SpotGenre.new({genre_id: genre_s.id, level: index, main: main_flg})
                 spot_genres << spot_genre
+                break
               end
             }
           end
@@ -217,6 +219,7 @@ class Tasks::ApiImport
       facility.name     = item.dig("name")
       facility.quantity = item.dig("quantity")
       facility.note     = item.dig("note")
+      facility
     }
     facilities
   end

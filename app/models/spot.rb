@@ -11,4 +11,7 @@ class Spot < ApplicationRecord
   has_many :spot_genres, dependent: :destroy
   has_many :genres, through: :spot_genres
 
+  validates :ref_id, :ref_sub_id, :name, presence: true
+  
+
 end
